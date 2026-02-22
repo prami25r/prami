@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Lato, Playfair_Display } from "next/font/google";
 import "@/app/globals.css";
 import Link from "next/link";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const lato = Lato({
+  variable: "--font-lato",
   subsets: ["latin"],
+  weight: ["400", "700", "900"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin"],
+  weight: ["600", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -40,46 +44,48 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${lato.variable} ${playfair.variable} antialiased`}
       >
-        <header className="border-b border-gray-200">
-          <nav className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-            <Link href="/" className="font-semibold text-black">
-              Pramithi
-            </Link>
-            <div className="flex items-center gap-5 text-sm">
-              <a href="#about" className="text-gray-700 hover:text-black">
-                About
-              </a>
-              <a href="#skills" className="text-gray-700 hover:text-black">
-                Skills
-              </a>
-              <a href="#projects" className="text-gray-700 hover:text-black">
-                Projects
-              </a>
-              <a href="#resume" className="text-gray-700 hover:text-black">
-                Resume
-              </a>
-              <a href="#contact" className="text-gray-700 hover:text-black">
-                Contact
-              </a>
-            </div>
-          </nav>
+        <header className="sticky top-0 z-40">
+          <div className="accent-border">
+            <nav className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between glass">
+              <Link href="/" className="font-extrabold text-xl">
+                Pramithi
+              </Link>
+              <div className="flex items-center gap-5 text-sm">
+                <a href="#about" className="subtle hover:text-black transition-colors">
+                  About
+                </a>
+                <a href="#skills" className="subtle hover:text-black transition-colors">
+                  Skills
+                </a>
+                <a href="#projects" className="subtle hover:text-black transition-colors">
+                  Projects
+                </a>
+                <a href="#resume" className="subtle hover:text-black transition-colors">
+                  Resume
+                </a>
+                <a href="#contact" className="subtle hover:text-black transition-colors">
+                  Contact
+                </a>
+              </div>
+            </nav>
+          </div>
         </header>
-        <main>{children}</main>
-        <footer className="border-t border-gray-200">
-          <div className="max-w-5xl mx-auto px-6 py-8 text-sm text-gray-600 flex flex-wrap gap-4 justify-between">
+        <main className="min-h-screen">{children}</main>
+        <footer className="mt-16">
+          <div className="max-w-6xl mx-auto px-6 py-10 subtle flex flex-wrap gap-4 justify-between">
             <p>© {new Date().getFullYear()} Pramithi</p>
             <div className="flex gap-4">
               <a
                 href="https://www.linkedin.com/in/pramithi-r-3b0b47211/"
-                className="hover:text-black"
+                className="hover:text-black transition-colors"
               >
                 LinkedIn
               </a>
               <a
                 href="https://github.com/prami25r"
-                className="hover:text-black"
+                className="hover:text-black transition-colors"
               >
                 GitHub
               </a>

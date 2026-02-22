@@ -35,19 +35,16 @@ const groups: Group[] = [
 
 export default function Skills() {
   return (
-    <section
-      id="skills"
-      className="max-w-5xl mx-auto px-6 py-16 border-b border-gray-200"
-    >
-      <h2 className="text-2xl font-semibold text-black">Skills</h2>
+    <section id="skills" className="max-w-6xl mx-auto px-6 py-20">
+      <h2>Skills</h2>
       <div className="mt-6 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
         {groups.map((g) => (
           <div
             key={g.title}
-            className="rounded border border-gray-200 p-4 bg-white"
+            className="card accent-border p-5"
           >
-            <h3 className="font-medium text-black">{g.title}</h3>
-            <ul className="mt-2 text-sm text-gray-700 space-y-1">
+            <h3>{g.title}</h3>
+            <ul className="mt-2 subtle space-y-1">
               {g.items.map((it) => (
                 <li key={it} className="leading-6">
                   {it}

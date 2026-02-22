@@ -1,76 +1,61 @@
 type Project = {
-  slug: string;
   title: string;
-  problem: string;
-  stack: string[];
-  architecture: string;
-  github?: string;
+  blurb: string;
+  highlights: string[];
+  github: string;
 };
 
 const projects: Project[] = [
   {
-    slug: "ml-algorithm-benchmark",
-    title: "ml-algorithm-benchmark",
-    problem:
-      "Scientific benchmarking of ML algorithms with visualization and performance comparisons across datasets and metrics.",
-    stack: ["Python", "Pandas", "scikit-learn", "Matplotlib/Seaborn", "Jupyter"],
-    architecture:
-      "Data ingestion → preprocessing → model runners → metrics registry → visualization layer; reproducible runs with config.",
+    title: "ML Algorithm Benchmark",
+    blurb:
+      "Performance comparison framework evaluating ML algorithms across datasets with benchmarking metrics and visualization.",
+    highlights: ["Flask app", "Automated EDA", "Model comparison", "Feature importance", "Secure previews"],
     github: "https://github.com/prami25r/ml-algorithm-benchmark",
   },
   {
-    slug: "multilingual-student-assistant",
-    title: "multilingual-student-assistant",
-    problem:
-      "Assistant enabling multilingual academic support: Q&A, summarization, and task help across languages.",
-    stack: ["Node/TS", "Next.js", "LLM API", "Vector DB", "i18n"],
-    architecture:
-      "Content loader → embedding pipeline → vector search → LLM orchestration → multilingual UX with streaming responses.",
+    title: "Multilingual Student Assistant",
+    blurb:
+      "AI‑driven assistant supporting multilingual academic queries with retrieval and contextual learning support.",
+    highlights: ["FastAPI backend", "RAG pipeline", "ChromaDB", "Gemini + Ollama", "React UI"],
     github: "https://github.com/prami25r/multilingual-student-assistant",
   },
   {
-    slug: "usage-analytics-saas",
-    title: "usage-analytics-saas",
-    problem:
-      "Production-ready sample SaaS for product usage analytics with organizations, projects, events, and dashboards.",
-    stack: ["Next.js", "PostgreSQL", "Prisma", "tRPC/REST", "Docker"],
-    architecture:
-      "Multi-tenant RBAC → ingestion API → event warehouse (Postgres) → aggregation jobs → dashboards via RSC.",
-    github: "https://github.com/prami25r/SQL-Portfolio-Projects",
+    title: "Stock Market Simulator",
+    blurb:
+      "Interactive trading simulation with virtual portfolio management and market behavior emulation.",
+    highlights: ["MERN stack", "Mock live prices", "Portfolio tracking", "JWT auth", "Responsive UI"],
+    github: "https://github.com/prami25r/STOCK-MARKET-SIMULTAOR",
   },
 ];
 
 export default function Projects() {
   return (
-    <section
-      id="projects"
-      className="max-w-5xl mx-auto px-6 py-16 border-b border-gray-200"
-    >
-      <h2 className="text-2xl font-semibold text-black">Projects</h2>
-      <div className="mt-6 grid gap-6 md:grid-cols-2">
+    <section id="projects" className="max-w-6xl mx-auto px-6 py-20">
+      <h2>Featured Projects</h2>
+      <div className="mt-8 grid gap-6 md:grid-cols-3">
         {projects.map((p) => (
           <article
-            key={p.slug}
-            className="rounded border border-gray-200 bg-white p-5 flex flex-col"
+            key={p.title}
+            className="card accent-border p-6 h-full flex flex-col transition-transform duration-300 ease-in-out hover:-translate-y-0.5"
           >
-            <h3 className="text-lg font-semibold text-black">{p.title}</h3>
-            <p className="mt-2 text-gray-700">{p.problem}</p>
-            <div className="mt-3 text-sm text-gray-600">
-              <span className="font-medium text-black">Stack:</span>{" "}
-              {p.stack.join(" • ")}
+            <h3 className="leading-snug">{p.title}</h3>
+            <p className="mt-2 subtle leading-relaxed">{p.blurb}</p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {p.highlights.map((h) => (
+                <span key={h} className="pill text-xs font-medium px-3 py-1">
+                  {h}
+                </span>
+              ))}
             </div>
-            <div className="mt-2 text-sm text-gray-600">
-              <span className="font-medium text-black">Architecture:</span>{" "}
-              {p.architecture}
-            </div>
-            {p.github ? (
-              <a
-                className="mt-4 inline-flex w-fit rounded border border-gray-400 px-3 py-1.5 text-black hover:bg-gray-100"
-                href={p.github}
-              >
-                GitHub
-              </a>
-            ) : null}
+            <a
+              className="mt-6 inline-flex w-fit btn-primary px-5 py-2.5 self-start"
+              href={p.github}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View on GitHub
+            </a>
           </article>
         ))}
       </div>

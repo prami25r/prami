@@ -1,19 +1,12 @@
 export default function About() {
   return (
-    <section
-      id="about"
-      className="max-w-5xl mx-auto px-6 py-16 border-b border-gray-200"
-    >
-      <h2 className="text-2xl font-semibold text-black">About</h2>
-      <p className="mt-4 text-gray-700 leading-relaxed">
-        I build production-grade software across the stack. My focus spans
-        system design, type-safe APIs, and resilient backend services; ML
-        integration for intelligent features; and database and performance
-        engineering that keep systems efficient and observable. I deliver
-        SaaS-quality solutions with clear architecture, strong CI/CD, and
-        operational maturity.
+    <section id="about" className="max-w-6xl mx-auto px-6 py-20">
+      <h2>About</h2>
+      <p className="mt-4 leading-relaxed max-w-3xl">
+        I build production‑grade software across the stack with an emphasis on clarity,
+        performance, and reliability. I focus on system design, type‑safe APIs, resilient
+        backend services, ML‑driven features, and measured UX that gets out of the way.
       </p>
     </section>
   );
 }
-
