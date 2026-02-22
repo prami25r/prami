@@ -1,6 +1,6 @@
 export default function Resume() {
   return (
-    <section id="resume" className="max-w-6xl mx-auto px-6 py-20">
+    <section id="resume" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20 scroll-mt-24">
       <h2>Resume</h2>
       <p className="mt-4 max-w-2xl">
         One‑page overview of experience, skills, and impact. Minimal, focused, and up‑to‑date.

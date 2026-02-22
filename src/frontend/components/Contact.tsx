@@ -44,7 +44,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="max-w-6xl mx-auto px-6 py-20">
+    <section id="contact" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20 scroll-mt-24">
       <h2>Contact</h2>
       <form onSubmit={onSubmit} className="mt-6 grid gap-4 max-w-2xl">
         <div className="grid gap-1">
@@ -54,7 +54,7 @@ export default function Contact() {
             name="name"
             required
             minLength={2}
-            className="rounded-[14px] border border-[var(--border)] px-3 py-2 bg-[var(--bg-card)] text-[var(--text)] placeholder-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-white transition"
+            className="rounded-[14px] border border-[var(--border)] px-3 py-3 bg-[var(--bg-card)] text-[var(--text)] placeholder-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-white transition"
             placeholder="Your name"
           />
         </div>
@@ -65,7 +65,7 @@ export default function Contact() {
             name="email"
             type="email"
             required
-            className="rounded-[14px] border border-[var(--border)] px-3 py-2 bg-[var(--bg-card)] text-[var(--text)] placeholder-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-white transition"
+            className="rounded-[14px] border border-[var(--border)] px-3 py-3 bg-[var(--bg-card)] text-[var(--text)] placeholder-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-white transition"
             placeholder="you@example.com"
           />
         </div>
@@ -77,14 +77,14 @@ export default function Contact() {
             required
             minLength={10}
             rows={5}
-            className="rounded-[14px] border border-[var(--border)] px-3 py-2 bg-[var(--bg-card)] text-[var(--text)] placeholder-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-white transition"
+            className="rounded-[14px] border border-[var(--border)] px-3 py-3 bg-[var(--bg-card)] text-[var(--text)] placeholder-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-white transition"
             placeholder="How can I help?"
           />
         </div>
         <button
           type="submit"
           disabled={state.status === "submitting"}
-          className="inline-flex w-fit items-center btn-primary px-5 py-2.5 disabled:opacity-60"
+          className="inline-flex w-fit items-center btn-primary px-5 py-3 disabled:opacity-60"
         >
           {state.status === "submitting" ? "Sending…" : "Send message"}
         </button>

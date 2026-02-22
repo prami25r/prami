@@ -31,9 +31,9 @@ const projects: Project[] = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="max-w-6xl mx-auto px-6 py-20">
+    <section id="projects" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20 scroll-mt-24">
       <h2>Featured Projects</h2>
-      <div className="mt-8 grid gap-6 md:grid-cols-3">
+      <div className="mt-8 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
         {projects.map((p) => (
           <article
             key={p.title}

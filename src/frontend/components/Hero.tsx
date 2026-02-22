@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="max-w-6xl mx-auto px-6 py-28">
+    <section className="max-w-6xl mx-auto px-4 sm:px-6 py-20 md:py-28">
       <h1 className="tracking-tight hero-name">
         Pramithi
       </h1>

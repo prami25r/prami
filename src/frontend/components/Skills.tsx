@@ -35,7 +35,7 @@ const groups: Group[] = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="max-w-6xl mx-auto px-6 py-20">
+    <section id="skills" className="max-w-6xl mx-auto px-4 sm:px-6 py-16 md:py-20 scroll-mt-24">
       <h2>Skills</h2>
       <div className="mt-6 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
         {groups.map((g) => (

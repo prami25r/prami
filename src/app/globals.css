@@ -188,6 +188,7 @@ button, input, textarea, select, .btn-primary, .btn-ghost {
 /* Sections */
 section {
   background: transparent;
+  scroll-margin-top: 6rem;
 }
 
 /* Lift on hover for cards */

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Lato, Playfair_Display } from "next/font/google";
 import "@/app/globals.css";
-import Link from "next/link";
+import SiteHeader from "@/frontend/components/SiteHeader";
 
 const lato = Lato({
   variable: "--font-lato",
@@ -46,35 +46,10 @@ export default function RootLayout({
       <body
         className={`${lato.variable} ${playfair.variable} antialiased`}
       >
-        <header className="sticky top-0 z-40">
-          <div className="accent-border">
-            <nav className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between glass">
-              <Link href="/" className="font-extrabold text-xl">
-                Pramithi
-              </Link>
-              <div className="flex items-center gap-5 text-sm">
-                <a href="#about" className="subtle hover:text-black transition-colors">
-                  About
-                </a>
-                <a href="#skills" className="subtle hover:text-black transition-colors">
-                  Skills
-                </a>
-                <a href="#projects" className="subtle hover:text-black transition-colors">
-                  Projects
-                </a>
-                <a href="#resume" className="subtle hover:text-black transition-colors">
-                  Resume
-                </a>
-                <a href="#contact" className="subtle hover:text-black transition-colors">
-                  Contact
-                </a>
-              </div>
-            </nav>
-          </div>
-        </header>
-        <main className="min-h-screen">{children}</main>
+        <SiteHeader />
+        <main className="min-h-screen pt-16 md:pt-20">{children}</main>
         <footer className="mt-16">
-          <div className="max-w-6xl mx-auto px-6 py-10 subtle flex flex-wrap gap-4 justify-between">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 md:py-10 subtle flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 justify-between">
             <p>© {new Date().getFullYear()} Pramithi</p>
             <div className="flex gap-4">
               <a
