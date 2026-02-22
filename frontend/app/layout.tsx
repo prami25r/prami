@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Lato, Playfair_Display } from "next/font/google";
 import "@/app/globals.css";
-import SiteHeader from "@/frontend/components/SiteHeader";
+import SiteHeader from "../components/SiteHeader";
 
 const lato = Lato({
   variable: "--font-lato",
@@ -43,9 +43,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${lato.variable} ${playfair.variable} antialiased`}
-      >
+      <body className={`${lato.variable} ${playfair.variable} antialiased`}>
         <SiteHeader />
         <main className="min-h-screen pt-16 md:pt-20">{children}</main>
         <footer className="mt-16">

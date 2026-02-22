@@ -9,12 +9,8 @@ function fromEnv() {
   return nodemailer.createTransport({
     host,
     port,
-    secure: port === 465, // true for 465, false for 587 (STARTTLS)
+    secure: port === 465,
     auth: { user, pass },
-    requireTLS: port === 587, // Force TLS for port 587
-    tls: {
-      ciphers: "SSLv3",
-    },
   });
 }
 
@@ -46,7 +42,7 @@ export async function sendContactEmail(params: {
   const transport = await getTransport();
   if (!transport) {
     throw new Error(
-      "Email transport not configured. Set SMTP_HOST/SMTP_USER/SMTP_PASS or use an SMTP provider.",
+      "Email transport not configured. Set SMTP_HOST/SMTP_USER/SMTP_PASS or use an SMTP provider."
     );
   }
   const info = await transport.sendMail({
