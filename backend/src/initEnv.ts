@@ -1,3 +1,4 @@
+import "dotenv/config";
 const mask = (val: string | undefined) => {
   if (!val) return "(not set)";
   if (val.length <= 4) return "*".repeat(val.length);

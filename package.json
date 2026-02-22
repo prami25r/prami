@@ -7,6 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "vitest run",
+    "email:test": "tsx -r dotenv/config backend/src/scripts/test-email.ts",
+    "contact:post": "tsx backend/src/scripts/post-contact.ts",
     "backend:db:generate": "cd backend && prisma generate",
     "backend:db:push": "cd backend && prisma db push",
     "backend:db:migrate": "cd backend && prisma migrate dev"
@@ -31,7 +34,11 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "dotenv": "^16.4.7",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.1",
+    "typescript": "^5",
+    "vitest": "^2.0.5"
   }
 }

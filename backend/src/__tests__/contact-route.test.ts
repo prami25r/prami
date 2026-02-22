@@ -13,7 +13,7 @@ describe("contact route", () => {
   });
 
   it("calls sendContactEmail with the correct to address", async () => {
-    const { POST } = await import("../../../frontend/api/route");
+    const { POST } = await import("../../../app/api/contact/route");
     const { sendContactEmail } = await import("@/backend/mailer");
     const payload = {
       name: "Alice",
@@ -33,5 +33,43 @@ describe("contact route", () => {
     expect(firstCallArg.to).toBe(
       "pramithiravikumar@gmail.com"
     );
+  });
+  
+  it("does not send when honeypot is filled", async () => {
+    const { POST } = await import("../../../app/api/contact/route");
+    const { sendContactEmail } = await import("@/backend/mailer");
+    const mocked = sendContactEmail as unknown as Mock;
+    mocked.mockClear();
+    const payload: Record<string, unknown> = {
+      name: "Bot",
+      email: "bot@example.com",
+      message: "spammy",
+      website: "http://spam.tld",
+    };
+    const req = new Request("http://localhost/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const res = await POST(req as unknown as Request);
+    expect(res.ok).toBe(true);
+    expect(mocked).toHaveBeenCalledTimes(0);
+  });
+  
+  it("returns 400 on invalid input", async () => {
+    const { POST } = await import("../../../app/api/contact/route");
+    const payload = {
+      name: "",
+      email: "invalid",
+      message: "",
+    };
+    const req = new Request("http://localhost/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const res = await POST(req as unknown as Request);
+    expect(res.ok).toBe(false);
+    expect(res.status).toBe(400);
   });
 });

@@ -1,19 +1,25 @@
 import nodemailer from "nodemailer";
 
 function fromEnv() {
-  const host = process.env.SMTP_HOST;
-  const port = process.env.SMTP_PORT ? Number(process.env.SMTP_PORT) : 587;
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
+  const host = process.env.SMTP_HOST?.trim();
+  const port = process.env.SMTP_PORT?.trim()
+    ? Number(String(process.env.SMTP_PORT).trim())
+    : 587;
+  const user = process.env.SMTP_USER?.trim();
+  const pass = process.env.SMTP_PASS?.trim();
   if (!host || !user || !pass) return null;
   const enableDebug =
     String(process.env.EMAIL_DEBUG).toLowerCase() === "true" ||
     process.env.NODE_ENV !== "production";
+  const isGmail = /gmail\.com$/i.test(host) || /gmail\.com$/i.test(user);
   return nodemailer.createTransport({
     host,
     port,
     secure: port === 465,
+    requireTLS: port === 587,
     auth: { user, pass },
+    authMethod: isGmail ? "LOGIN" : undefined,
+    tls: { minVersion: "TLSv1.2" },
     logger: enableDebug ? true : undefined,
     debug: enableDebug,
   });
@@ -80,6 +86,22 @@ export async function sendContactEmail(params: {
     const response = e?.response;
     const command = e?.command;
     console.error("[email-error]", { code, response, command, error: e });
-    throw new Error("Failed to send email. Please try again later.");
+    const withMeta = <T extends Error>(
+      base: T,
+      meta: Record<string, unknown>
+    ) => Object.assign(base, meta);
+    if (code === "EAUTH") {
+      throw withMeta(new Error("EMAIL_AUTH_FAILED"), { code, cause: e });
+    }
+    if (code === "ECONNECTION" || code === "ETIMEDOUT") {
+      throw withMeta(new Error("EMAIL_SERVICE_UNAVAILABLE"), {
+        code,
+        cause: e,
+      });
+    }
+    throw withMeta(new Error("EMAIL_SEND_FAILED"), {
+      code: code ?? "UNKNOWN",
+      cause: e,
+    });
   }
 }

@@ -10,7 +10,8 @@ export const contactSchema = z.object({
     .string()
     .min(10, "Message must be at least 10 characters")
     .max(2000, "Message is too long"),
+  website: z.string().optional(), // honeypot
+  startedAt: z.number().optional(), // client timestamp ms
 });
 
 export type ContactInput = z.infer<typeof contactSchema>;
-
