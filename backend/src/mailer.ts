@@ -6,11 +6,16 @@ function fromEnv() {
   const user = process.env.SMTP_USER;
   const pass = process.env.SMTP_PASS;
   if (!host || !user || !pass) return null;
+  const enableDebug =
+    String(process.env.EMAIL_DEBUG).toLowerCase() === "true" ||
+    process.env.NODE_ENV !== "production";
   return nodemailer.createTransport({
     host,
     port,
     secure: port === 465,
     auth: { user, pass },
+    logger: enableDebug ? true : undefined,
+    debug: enableDebug,
   });
 }
 
@@ -19,7 +24,10 @@ export async function getTransport() {
   if (t) return t;
   try {
     const account = await nodemailer.createTestAccount();
-    return nodemailer.createTransport({
+    const enableDebug =
+      String(process.env.EMAIL_DEBUG).toLowerCase() === "true" ||
+      process.env.NODE_ENV !== "production";
+    const transport = nodemailer.createTransport({
       host: "smtp.ethereal.email",
       port: 587,
       auth: {
@@ -27,6 +35,10 @@ export async function getTransport() {
         pass: account.pass,
       },
     });
+    if (enableDebug) {
+      transport.set("logger", console);
+    }
+    return transport;
   } catch {
     return null;
   }
@@ -45,19 +57,29 @@ export async function sendContactEmail(params: {
       "Email transport not configured. Set SMTP_HOST/SMTP_USER/SMTP_PASS or use an SMTP provider."
     );
   }
-  const info = await transport.sendMail({
-    to: params.to,
-    from: `"Portfolio Contact" <${params.from}>`,
-    replyTo: params.replyTo,
-    subject: `New message from ${params.name}`,
-    text: params.message,
-    html: `<p><strong>Name:</strong> ${params.name}</p>
+  try {
+    const info = await transport.sendMail({
+      to: params.to,
+      from: `"Portfolio Contact" <${params.from}>`,
+      replyTo: params.replyTo,
+      subject: `New message from ${params.name}`,
+      text: params.message,
+      html: `<p><strong>Name:</strong> ${params.name}</p>
 <p><strong>Email:</strong> ${params.replyTo}</p>
 <p>${params.message.replace(/\n/g, "<br/>")}</p>`,
-  });
-  const url = nodemailer.getTestMessageUrl(info);
-  if (url) {
-    console.log("Preview email:", url);
+    });
+    console.info("[email] messageId:", info.messageId);
+    const url = nodemailer.getTestMessageUrl(info);
+    if (url) {
+      console.log("Preview email:", url);
+    }
+    return info;
+  } catch (err: unknown) {
+    const e = err as { code?: string; response?: unknown; command?: string };
+    const code = e?.code;
+    const response = e?.response;
+    const command = e?.command;
+    console.error("[email-error]", { code, response, command, error: e });
+    throw new Error("Failed to send email. Please try again later.");
   }
-  return info;
 }
