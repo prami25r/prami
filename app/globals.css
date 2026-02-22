@@ -1,0 +1,198 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #ffffff;
+  --bg-section: #f7f7f9;
+  --bg-card: #ffffff;
+  --border: #e5e5e5;
+  --text: #111111;
+  --text-sub: #1a1a1a;
+  --text-muted: #6b6b6b;
+  --text-strong: #0a0a0a;
+  --radius-card: 16px;
+  --transition: 250ms ease-in-out;
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --color-muted: var(--text-muted);
+  --radius-card: var(--radius-card);
+  --font-sans: var(--font-lato);
+  --font-display: var(--font-playfair);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background:
+    linear-gradient(180deg, #ffffff 0%, #f9f9fb 60%);
+  color: var(--text);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.glass {
+  background: linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0.02));
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: var(--radius-card);
+  box-shadow:
+    0 1px 0 rgba(0,0,0,0.04) inset,
+    0 10px 30px rgba(0,0,0,0.08),
+    0 2px 8px rgba(0,0,0,0.06);
+  backdrop-filter: blur(8px);
+}
+
+.card {
+  background: linear-gradient(180deg, var(--bg-card), var(--bg-section));
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border);
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.02) inset,
+    0 8px 24px rgba(0,0,0,0.06);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.accent-border {
+  position: relative;
+  border-radius: var(--radius-card);
+}
+.accent-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: var(--radius-card);
+  background: linear-gradient(135deg, rgba(0,0,0,0.08), rgba(0,0,0,0.02));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box, 
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+.btn-primary {
+  background: #ffffff;
+  color: #0a0a0a;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  transition: all var(--transition);
+}
+.btn-primary:hover {
+  background: #0a0a0a;
+  color: #ffffff;
+  border-color: #000000;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+}
+.btn-ghost {
+  background: transparent;
+  color: #0a0a0a;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  transition: all var(--transition);
+}
+.btn-ghost:hover {
+  border-color: #000000;
+  background: #f5f5f5;
+  color: #0a0a0a;
+}
+
+.pill {
+  background: #f5f5f5;
+  border: 1px solid #e8e8e8;
+  color: #0a0a0a;
+  border-radius: 999px;
+}
+
+.subtle {
+  color: var(--text-muted);
+}
+
+/* Typography hierarchy */
+h1, h2, h3 { color: var(--text-strong); }
+h1, h2 {
+  font-family: var(--font-display), serif;
+  letter-spacing: -0.5px;
+  text-shadow: none;
+}
+h3, h4, p, li, span, label, input, textarea, button, a, small, nav {
+  font-family: var(--font-sans), sans-serif;
+  text-shadow: none;
+}
+
+/* Hero name emphasis */
+.hero-name {
+  font-family: var(--font-display), serif;
+  font-weight: 700;
+  font-size: clamp(56px, 8vw, 72px);
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+/* Hierarchy and sizes with fluid scaling */
+h1 {
+  font-weight: 700;
+  font-size: clamp(48px, 6vw, 56px);
+  line-height: 1.2;
+}
+h2 {
+  font-weight: 600;
+  font-size: clamp(32px, 4vw, 40px);
+  line-height: 1.25;
+}
+h3 {
+  font-weight: 600;
+  font-size: clamp(22px, 2.2vw, 24px);
+  line-height: 1.3;
+}
+body, p, li {
+  font-weight: 400;
+  font-size: clamp(16px, 1.8vw, 18px);
+  line-height: 1.7;
+}
+small, .text-small {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Modular vertical spacing */
+:root {
+  --type-space-xs: 8px;
+  --type-space-sm: 12px;
+  --type-space-md: 16px;
+  --type-space-lg: 20px;
+  --type-space-xl: 28px;
+}
+
+h1 { margin: 0 0 var(--type-space-xl); }
+h2 { margin: 0 0 var(--type-space-lg); }
+h3 { margin: 0 0 var(--type-space-md); }
+p  { margin: 0 0 var(--type-space-md); }
+ul, ol { margin: 0 0 var(--type-space-md); padding-left: 1.25rem; }
+
+/* Enforce two-font system across typical UI elements */
+button, input, textarea, select, .btn-primary, .btn-ghost {
+  font-family: var(--font-sans), sans-serif;
+  font-weight: 400;
+}
+
+/* Sections */
+section {
+  background: transparent;
+  scroll-margin-top: 6rem;
+}
+
+/* Lift on hover for cards */
+.card:hover {
+  transform: translateY(-2px);
+  border-color: #3a3a3a;
+}

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { contactSchema } from "@/validators";
-import { sendContactEmail } from "@/mailer";
+import { contactSchema } from "@/backend/validators";
+import { sendContactEmail } from "@/backend/mailer";
 
 export async function POST(request: Request) {
   try {
